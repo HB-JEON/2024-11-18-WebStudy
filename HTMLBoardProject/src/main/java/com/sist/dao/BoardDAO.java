@@ -31,7 +31,7 @@ public class BoardDAO {
 	{
 		try
 		{
-			Class.forName("oracle,jdbc.driver.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 		}catch(Exception ex) {}
 	}
 	// 싱글턴 static => 메모리 공간을 한개만 생성
@@ -68,33 +68,29 @@ public class BoardDAO {
 		try
 		{
 			// 1. 오라클 연결
-			getConnection();
-			// 2. SQL 문장 => 페이지 나누기(인라인뷰)
-			String sql="SELECT no, subject, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit, num"
-					+ "FROM (SELECT no, subject, name, regdate, hit, rownum as num "
-					+ "FROM (SELECT no, subject, name, regdate, hit "
-					+ "FROM htmlboard ORDER BY no DESC)) "
-					+ "WHERE num BETWEEN ? AND ?";
-			ps=conn.prepareStatement(sql); // 오라클로 SQL 문장 전송
-			int rowSize=10;
-			int start=(rowSize*page)-(rowSize-1); // (10*1) - (10-1) = 1 
-			// 1 11 21...                             = 10      = 9
-			int end=rowSize*page;
-			// 10 20 30...
-			ps.setInt(1, start);
-			ps.setInt(2, end);
-			ResultSet rs=ps.executeQuery();
-			while(rs.next())
-			{
-				BoardVO vo=new BoardVO();
-				vo.setNo(rs.getInt(1));
-				vo.setSubject(rs.getString(2));
-				vo.setName(rs.getString(3));
-				vo.setDbday(rs.getString(4));
-				vo.setHit(rs.getInt(5));
-				list.add(vo);
-			}
-			rs.close();
+			 getConnection(); // Ensure connection is established
+		        String sql = "SELECT no, subject, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit, num "
+		                + "FROM (SELECT no, subject, name, regdate, hit, rownum as num "
+		                + "FROM (SELECT no, subject, name, regdate, hit "
+		                + "FROM htmlboard ORDER BY no DESC)) "
+		                + "WHERE num BETWEEN ? AND ?";
+		        ps = conn.prepareStatement(sql);
+		        int rowSize = 10;
+		        int start = (rowSize * page) - (rowSize - 1);
+		        int end = rowSize * page;
+		        ps.setInt(1, start);
+		        ps.setInt(2, end);
+		        ResultSet rs = ps.executeQuery();
+		        while (rs.next()) {
+		            BoardVO vo = new BoardVO();
+		            vo.setNo(rs.getInt(1));
+		            vo.setSubject(rs.getString(2));
+		            vo.setName(rs.getString(3));
+		            vo.setDbday(rs.getString(4));
+		            vo.setHit(rs.getInt(5));
+		            list.add(vo);
+		        }
+		        rs.close();
 		}catch(Exception ex)
 		{
 			// 복구가 어려움 => 예외에 대한 정보확인
