@@ -6,40 +6,53 @@
 <link rel="stylesheet" href="../css/table.css">
 </head>
 <body>
+  <!-- 경로 --> 
   <center>
-   <h1>글쓰기</h1>
-   <table class="table_content" width=500>
-    <tr>
-     <th width=20%>이름</th>
+    <h1>글쓰기</h1>
+    <form method="post" action="../BoardInsert">
+    <table class="table_content" width="500">
+     <tr>
+      <th width=20%>이름</th>
       <td width=80%>
-       <input type=text size=20>
+       <input type=text size=20 required name="name">
+       <!-- 
+          모든 태그는 속성이 존재
+           id / class => 태그 구분자
+           --   ----- 중복이 있는 경우
+            중복 없이
+          ============================ CSS(화면 UI), JavaScript로 제어
+          name => 자바로 데이터 전송할 때 사용
+          styele
+        -->
       </td>
-    </tr>
-    <tr>
-     <th width=20%>제목</th>
+     </tr>
+     <tr>
+      <th width=20%>제목</th>
       <td width=80%>
-       <input type=text size=50>
+       <input type=text size=50 required name="subject">
       </td>
-    </tr>
-    <tr>
-     <th width=20%>내용</th>
+     </tr>
+     <tr>
+      <th width=20%>내용</th>
       <td width=80%>
-       <textarea rows="10" cols="52"></textarea>
+       <textarea rows="10" cols="52" required name="content"></textarea>
       </td>
-    </tr>
-    <tr>
-     <th width=20%>비밀번호</th>
+     </tr>
+     <tr>
+      <th width=20%>비밀번호</th>
       <td width=80%>
-       <input type="password" size=15>
+       <input type="password" size=15 required name="pwd">
       </td>
-    </tr>
-    <tr>
-     <td colspan="2" align="center">
-      <input type="submit" value="글쓰기">
-      <input type="button" value="취소" onclick="javascript:history.back()">
-     </td>
-    </tr>
-   </table>
+     </tr>
+     <tr>
+       <td colspan="2" align="center">
+         <input type="submit" value="글쓰기">
+         <input type="button" value="취소"
+          onclick="javascript:history.back()">
+       </td>
+     </tr>
+    </table>
+    </form>
   </center>
 </body>
 </html>
