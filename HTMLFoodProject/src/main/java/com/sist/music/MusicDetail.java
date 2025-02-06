@@ -22,7 +22,6 @@ public class MusicDetail extends HttpServlet {
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">");
-		out.println("<link rel=stylesheet href=css/music.css>");
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<div class=container>");
@@ -77,7 +76,7 @@ public class MusicDetail extends HttpServlet {
 		out.println("<a href=# class=\"btn btn-xs btn-danger\">좋아요</a>");
 		out.println("<a href=# class=\"btn btn-xs btn-success\">찜하기</a>");
 		out.println("<a href=# class=\"btn btn-xs btn-info\">예약하기</a>");
-		out.println("<a href=MusicList class=\"btn btn-xs btn-primary\">목록</a>");
+		out.println("<a href=MusicGerneFind class=\"btn btn-xs btn-primary\">목록</a>");
 		out.println("</td>");
 		out.println("</tr>");
 		out.println("</table>");

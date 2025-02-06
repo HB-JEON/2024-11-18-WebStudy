@@ -165,16 +165,15 @@ public class MusicDAO {
 		try
 		{
 			getConnection();
-			String sql="";
-			int rowSize=12;
-			int start=(rowSize*page)-(rowSize-1);
-			int end=rowSize*page;
-			sql="SELECT mno, title, poster, num "
+			String sql="SELECT mno, title, poster, num "
 					+ "FROM (SELECT mno, title, poster, rownum as num "
-					+ "FROM (SELECT mno, title, poster "
+					+ "FROM (SELECT /*+ INDEX_ASC(genie_music gm_mno_pk)*/mno, title, poster "
 					+ "FROM genie_music WHERE cno=?)) "
 					+ "WHERE num BETWEEN ? AND ? ";
 			ps=conn.prepareStatement(sql);
+			int rowSize=12;
+			int start=(rowSize*page)-(rowSize-1);
+			int end=rowSize*page;
 			ps.setInt(1, cno);
 			ps.setInt(2, start);
 			ps.setInt(3, end);

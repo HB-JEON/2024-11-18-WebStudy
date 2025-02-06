@@ -26,9 +26,9 @@ public class MainServlet extends HttpServlet {
 		out.println("<div class=row>");
 		out.println("<div class=text-center style=\"margin-top:200px\">");
 		out.println("<a href=FoodList class=\"btn btn-lg btn-success\">맛집</a>");
-		out.println("<a href=MusicList class=\"btn btn-lg btn-warning\">뮤직</a>");
+		out.println("<a href=MusicList class=\"btn btn-lg btn-warning\">음악</a>");
 		out.println("<a href=FoodFind class=\"btn btn-lg btn-danger\">맛집검색</a>");
-		out.println("<a href=MusicFind class=\"btn btn-lg btn-danger\">맛집검색</a>");
+		out.println("<a href=MusicFind class=\"btn btn-lg btn-danger\">음악검색</a>");
 		out.println("</div>");
 		out.println("</div>");
 		out.println("</div>");
