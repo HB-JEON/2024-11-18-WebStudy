@@ -74,7 +74,7 @@ public class MusicGerneFind extends HttpServlet {
 		for(int i=startPage;i<=endPage;i++)
 		{
 			if(i==curpage)
-				out.println("<li class=active><a href=\"MusicGerneFind?cno="+cno+"&page="+i+"\">"+i+"</a></li>");
+				out.println("<li class=active><a href=\"MainServlet?mode=7cno="+cno+"&page="+i+"\">"+i+"</a></li>");
 			else
 				out.println("<li><a href=\"MainServlet?mode=7&cno="+cno+"&page="+i+"\">"+i+"</a></li>");
 		}

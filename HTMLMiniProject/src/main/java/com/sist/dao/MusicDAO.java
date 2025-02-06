@@ -48,7 +48,7 @@ public class MusicDAO {
 					+ "FROM genie_music)) "
 					+ "WHERE num BETWEEN ? AND ?";
 			ps=conn.prepareStatement(sql);
-			int rowSize=20;
+			int rowSize=12;
 			int start=(rowSize*page)-(rowSize-1);
 			int end=rowSize*page;
 			ps.setInt(1, start);
