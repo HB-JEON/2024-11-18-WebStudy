@@ -74,19 +74,19 @@ public class FoodList extends HttpServlet {
 		out.println("<ul class=\"pagination\">");
 		if(startPage>1)
 		{
-			out.println("<li><a href=\"MainServlet?page="+(startPage-1)+"\">&lt;</a></li>");
+			out.println("<li><a href=\"MainServlet?&page="+(startPage-1)+"\">&lt;</a></li>");
 		}
 		for(int i=startPage;i<=endPage;i++)
 		{
 			if(i==curpage)
-				out.println("<li class=active><a href=\"MainServlet?page="+i+"\">"+i+"</a></li>");
+				out.println("<li class=active><a href=\"MainServlet?&page="+i+"\">"+i+"</a></li>");
 			else
-				out.println("<li><a href=\"MainServlet?page="+i+"\">"+i+"</a></li>");
+				out.println("<li><a href=\"MainServlet?&page="+i+"\">"+i+"</a></li>");
 		}
 		
 		if(endPage<totalpage)
 		{
-			out.println("<li><a href=\"MainServlet?page="+(endPage+1)+"\">&gt;</a></li>");
+			out.println("<li><a href=\"MainServlet?&page="+(endPage+1)+"\">&gt;</a></li>");
 		}
 		out.println("</ul>");
 		out.println("</div>");
