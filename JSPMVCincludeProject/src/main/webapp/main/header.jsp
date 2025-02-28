@@ -50,16 +50,17 @@
       <li><a class="drop" href="#">커뮤니티</a>
         <ul>
           <li><a href="pages/gallery.html">자유게시판</a></li>
-          <li><a href="pages/full-width.html">묻고 답하기</a></li>
+          <li><a href="pages/full-width.html">묻고답하기</a></li>
           <li><a href="pages/sidebar-left.html">공지사항</a></li>
           <li><a href="pages/sidebar-left.html">실시간 채팅</a></li>
         </ul>
       </li>
+      
       <li><a href="#">스토어</a></li>
-      <li><a href="#">마이 페이지</a></li>
+      <li><a href="#">마이페이지</a></li>
+      <li><a href="../emp/list.do">사원정보</a></li>
     </ul>
-  </nav>
+    </nav>
 </div>
-
 </body>
 </html>

@@ -99,4 +99,11 @@ public class FoodDAO {
 		session.close();
 		return vo;
 	}
+	public static List<EmpVO> empListData()
+	{
+		SqlSession session=ssf.openSession();
+		List<EmpVO> list=session.selectList("empListData");
+		session.close();
+		return list;
+	}
 }
