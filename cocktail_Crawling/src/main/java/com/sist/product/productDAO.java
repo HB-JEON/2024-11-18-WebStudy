@@ -7,7 +7,8 @@ public class productDAO {
     private PreparedStatement ps;
     private final String URL = "jdbc:oracle:thin:@211.238.142.124:1521:XE";
     private static productDAO dao;
-
+    // 211.238.142.124
+    // localhost
     // ✅ 싱글톤 패턴 적용
     public static productDAO newInstance() {
         if (dao == null) {
