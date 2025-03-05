@@ -12,12 +12,12 @@ public class product_Crawiling {
         productDAO dao = productDAO.newInstance();
 
         try {
-            int maxPage = 64; // 화이트 와인의 마지막 페이지
+            int maxPage = 7; 
 
             for (int i = 1; i <= maxPage; i++) {
                 System.out.println("🔄 현재 크롤링 중: " + i + " / " + maxPage + " 페이지");
 
-                Document doc = Jsoup.connect("http://www.kajawine.kr/shop/list.php?ca_id=10&type_color=1&it_opt4=&it_opt9=&it_price=&page=" + i).get();
+                Document doc = Jsoup.connect("http://www.kajawine.kr/shop/list.php?ca_id=40&sort=&sortodr=&type_color=&it_price=&it_opt4=&it_opt9=&page=" + i).get();
                 Elements productList = doc.select("li.item_thumb"); // ✅ 상품 리스트에서 아이템 가져오기
 
                 for (Element product : productList) {
@@ -54,14 +54,14 @@ public class product_Crawiling {
                             price = priceElementDetail.text().trim();
                         }
 
-                        if (price.isEmpty()) {
-                            price = "가격 정보 없음";
+                        // 가격이 비어있거나 0원인 경우 데이터를 받아오지 않도록 처리 (현재 상품을 건너뜁니다)
+                        if (price.isEmpty() || price.equals("0원") || price.equals("0 원")) {
+                            // 해당 상품은 저장하지 않고 다음 상품으로 넘어감
+                            continue;
                         }
 
-                        // ✅ 종류
-                        Element typeElement = doc2.selectFirst("td:contains(종류) + td");
-                        String type = (typeElement != null) ? typeElement.text().trim() : " ";
-
+                        String type="전통주";
+                        
                         // ✅ 알콜도수
                         Element alcElement = doc2.selectFirst("td:contains(알콜도수) + td");
                         String alc = (alcElement != null) ? alcElement.text().trim() : " ";
@@ -88,7 +88,7 @@ public class product_Crawiling {
 
                         // ✅ DB 저장
                         productVO vo = new productVO();
-                        vo.setCno(1); // 화이트 와인 (cno = 2)
+                        vo.setCno(18); // 아메리칸 5 / 스카치 6 ... / 브랜디 10 / 리큐르 13 ~ / 민속주 18
                         vo.setName(name);
                         vo.setPoster(poster);
                         vo.setType(type);
@@ -104,8 +104,9 @@ public class product_Crawiling {
 
                         // ✅ 디버깅용 출력
                         System.out.println("✔️ 저장 완료: " + name);
-                        System.out.println("🖼️ 포스터 URL: " + poster);
-                        System.out.println("💰 할인된 가격: " + price);
+                        System.out.println(type);
+                        System.out.println("🖼️ 포스터 : " + poster);
+                        System.out.println("💰 가격: " + price);
                         System.out.println("========================");
                     } catch (Exception ex) {
                         System.out.println("❌ 오류 발생 (페이지 스킵): " + ex.getMessage());
@@ -117,6 +118,6 @@ public class product_Crawiling {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("🎉 모든 화이트 와인 크롤링 완료!");
+        System.out.println("🎉");
     }
 }

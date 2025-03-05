@@ -35,7 +35,6 @@ public class productDAO {
             if (conn != null) {
                 conn.close();
                 conn = null;
-                System.out.println("✅ DB 연결 해제 완료!");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

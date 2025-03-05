@@ -14,10 +14,16 @@ BODY				VARCHAR2(200 BYTE)
 CONTENT				CLOB
  */
 public class productVO {
-	private int product_no, cno;
+	private int product_no, cno, hit;
 	private String name, type, poster, loc, sugar, body, content, alc, price, volumn;
 	public int getProduct_no() {
 		return product_no;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	public int getCno() {
 		return cno;
