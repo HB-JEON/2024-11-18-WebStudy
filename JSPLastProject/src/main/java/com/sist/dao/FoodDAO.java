@@ -42,22 +42,23 @@ public class FoodDAO {
 	  session.close();
 	  return list;
   }
+  
   /*
-      <select id="foodListData" resultType="FoodVO" parameterType="hashmap">
-	    SELECT fno, name, poster, score, type, content, theme, phone, address, nun
-	    FROM (SELECT fno, name, poster, score, type, content, theme, phone, address, rownun as num
-	    FPOM (SELECT + index_asc(project_food pf_fno_pk)fno, name, poster, score, type, content, theme, phone, address 
-	    FROM project_food))
-	    WHERE num BETWEEN #{start} AND #{end}
+   *   <select id="foodListData" resultType="FoodVO" parameterType="hashmap">
+	   SELECT fno,name,poster,score,type,content,theme,phone,address,num
+	   FROM (SELECT fno,name,poster,score,type,content,theme,phone,address,rownum as num 
+	   FROM (SELECT + INDEX_ASC(project_food pf_fno_pk)fno,name,poster,score,type,content,theme,phone,address
+	   FROM project_food))
+	   WHERE num BETWEEN #{start} AND #{end}
 	  </select>
 	  <select id="foodTotalPage" resultType="int">
-	    SELECT CEIL(COUNT(*)/20.0) FROM project_food
+	   SELECT CEIL(COUNT(*)/20.0) FROM project_food
 	  </select>
    */
   public static List<FoodVO> foodListData(Map map)
   {
 	  SqlSession session=ssf.openSession();
-	  List<FoodVO> list=session.selectList("",map);
+	  List<FoodVO> list=session.selectList("foodListData",map);
 	  session.close();
 	  return list;
   }
@@ -68,4 +69,5 @@ public class FoodDAO {
 	  session.close();
 	  return total;
   }
+  
 }
