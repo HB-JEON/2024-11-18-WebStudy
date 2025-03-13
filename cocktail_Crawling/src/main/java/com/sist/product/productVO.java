@@ -15,7 +15,7 @@ CONTENT				CLOB
  */
 public class productVO {
 	private int product_no, cno, hit;
-	private String name, type, poster, loc, sugar, body, content, alc, price, volumn;
+	private String name, type, poster, loc, content, alc, price, volumn;
 	public int getProduct_no() {
 		return product_no;
 	}
@@ -75,18 +75,6 @@ public class productVO {
 	}
 	public void setLoc(String loc) {
 		this.loc = loc;
-	}
-	public String getSugar() {
-		return sugar;
-	}
-	public void setSugar(String sugar) {
-		this.sugar = sugar;
-	}
-	public String getBody() {
-		return body;
-	}
-	public void setBody(String body) {
-		this.body = body;
 	}
 	public String getContent() {
         return (content != null) ? content : ""; // ✅ Null 방지

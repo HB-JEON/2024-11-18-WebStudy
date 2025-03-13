@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    1. CURD = INSERT / UPDATE / DELETE / SELECT
+              게시판 
+    2. JOIN 
+    3. SubQuery 
+    ===========================================
+    4. 동적쿼리 
+    
+              
+ -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.food-mapper">
   <!--  main : main 맛집 -->
@@ -26,12 +36,25 @@
    SELECT CEIL(COUNT(*)/12.0) FROM project_food
   </select>
   <select id="foodDetailData" resultType="FoodVO" parameterType="int">
-   SELECT * FROM project_food
-   WHERE fno=#{fno}
+    SELECT * FROM project_food
+    WHERE fno=#{fno}
   </select>
   <update id="foodHitIncrement" parameterType="int">
-   UPDATE project_food SET
-   hit=hit+1
-   WHERE fno=#{fno}
+    UPDATE project_food SET
+    hit=hit+1
+    WHERE fno=#{fno}
   </update>
+  <!-- 맛집 검색 -->
+  <select id="foodFindData" resultType="FoodVO" parameterType="hashmap">
+    SELECT fno,name,poster,score,type,content,theme,phone,address,likecount,replycount,num
+    FROM (SELECT fno,name,poster,score,type,content,theme,phone,address,likecount,replycount,rownum as num 
+    FROM (SELECT /*+ INDEX_ASC(project_food pf_fno_pk)*/fno,name,poster,score,type,content,theme,phone,address,likecount,replycount
+    FROM project_food WHERE ${fd} LIKE '%'||#{ss}||'%'))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <select id="foodFindTotalPage" resultType="int" parameterType="hashmap">
+    SELECT CEIL(COUNT(*)/12.0) 
+    FROM project_food
+    WHERE ${fd} LIKE '%'||#{ss}||'%'
+  </select>
 </mapper>

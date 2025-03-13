@@ -66,8 +66,8 @@ public class productDAO {
                 return;
             }
 
-            String sql = "INSERT INTO cocktail_product (product_no, cno, name, type, price, poster, alc, volumn, loc, sugar, body, content) "
-                       + "VALUES (product_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO cocktail_product (product_no, cno, name, type, price, poster, alc, volumn, loc, content) "
+                       + "VALUES (product_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
 
             // ✅ 데이터 저장
@@ -79,11 +79,9 @@ public class productDAO {
             ps.setString(6, vo.getAlc());   // ✅ VARCHAR2(200)으로 저장
             ps.setString(7, vo.getVolumn()); // ✅ VARCHAR2(200)으로 저장
             ps.setString(8, vo.getLoc());
-            ps.setString(9, vo.getSugar());
-            ps.setString(10, vo.getBody());
          // ✅ `content` 값이 `null`이면 빈 문자열로 저장
             String content = (vo.getContent() != null) ? vo.getContent() : "";
-            ps.setCharacterStream(11, new java.io.StringReader(content), content.length());
+            ps.setCharacterStream(9, new java.io.StringReader(content), content.length());
             
             // ✅ SQL 실행
             ps.executeUpdate();

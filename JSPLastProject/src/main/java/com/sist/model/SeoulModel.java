@@ -29,7 +29,7 @@ public class SeoulModel {
 			  map.put("end",curpage*12);
 			  map.put("table_name", tab[Integer.parseInt(mode)]);
 			  List<SeoulVO> list=SeoulDAO.seoulListData(map);
-			  int totalpage=SeoulDAO.SeoulTotalPage(map);
+			  int totalpage=SeoulDAO.seoulTotalPage(map);
 			  
 			  final int BLOCK=10;
 			  int startPage=((curpage-1)/BLOCK*BLOCK)+1;

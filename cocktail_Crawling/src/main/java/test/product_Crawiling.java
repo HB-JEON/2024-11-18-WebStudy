@@ -74,14 +74,6 @@ public class product_Crawiling {
                         Element locElement = doc2.selectFirst("td:contains(원산지) + td");
                         String loc = (locElement != null) ? locElement.text().trim() : " ";
 
-                        // ✅ 당도
-                        Element sugarElement = doc2.selectFirst("td:contains(당도) + td");
-                        String sugar = (sugarElement != null) ? sugarElement.text().trim() : " ";
-
-                        // ✅ 바디감
-                        Element bodyElement = doc2.selectFirst("td:contains(바디) + td");
-                        String body = (bodyElement != null) ? bodyElement.text().trim() : " ";
-
                         // ✅ 상세설명
                         Element contentElement = doc2.selectFirst("#goods_extit_cont01");
                         String content = (contentElement != null) ? contentElement.text().trim() : " ";
@@ -95,11 +87,8 @@ public class product_Crawiling {
                         vo.setAlc(alc);
                         vo.setVolumn(volumn);
                         vo.setLoc(loc);
-                        vo.setSugar(sugar);
-                        vo.setBody(body);
                         vo.setPrice(price);
                         vo.setContent(content);
-
                         dao.productInsert(vo);
 
                         // ✅ 디버깅용 출력
