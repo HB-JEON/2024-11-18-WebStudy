@@ -73,6 +73,15 @@ public class FoodModel {
 	  addr2=addr1.substring(0,addr2.trim().indexOf(" ")+1);
 	  request.setAttribute("addr", addr2);
 	  request.setAttribute("vo", vo);
+	  
+	  ReplyVO rvo=new ReplyVO();
+	  rvo.setRno(Integer.parseInt(fno));
+	  rvo.setType(1);
+	  List<ReplyVO> list=ReplyDAO.replyListData(rvo);
+	  int count=ReplyDAO.replyCount(rvo);
+	  request.setAttribute("rList", list);
+	  request.setAttribute("count", count);
+	  
 	  request.setAttribute("main_jsp", "../food/food_detail.jsp");
 	  return "../main/main.jsp";
   }
