@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,18 +57,20 @@
                 <td colspan="3">${vo.subject }</td>
                </tr>
                <tr>
-                <td colspan="4" class="text-left" valign="top" height="200"><pre style="white-space:pre-wrap;border:none;background-color: white">${vo.content }</pre></td>
+                <td colspan="4" class="text-left"
+                  valign="top" height="200"><pre style="white-space:pre-wrap;border:none;background-color: white">${vo.content }</pre></td>
                </tr>
                <tr>
                 <td colspan="4" class="text-right">
-                 <c:if test="${sessionScope.id!=null and sessionScope.id==vo.id }">     
-                  <a href="#" class="btn btn-xs btn-danger">수정</a>
-                  <a href="../qna/qna_delete.do?group_id=${vo.group_id }" class="btn btn-xs btn-info">삭제</a>
+                 <c:if test="${sessionScope.id!=null and sessionScope.id==vo.id}">
+                  <a href="../qna/qna_update.do?no=${vo.no }" class="btn btn-xs btn-danger">수정</a>
+                  <a href="../qna/qna_delete.do?group_id=${vo.group_id}" class="btn btn-xs btn-success">삭제</a>
                  </c:if>
-                  <a href="../qna/qna_list.do" class="btn btn-xs btn-success">목록</a>
+                 <a href="../qna/qna_list.do" class="btn btn-xs btn-info">목록</a>
                 </td>
                </tr>
               </table>
+              
             </div>
          </div>
     </section>

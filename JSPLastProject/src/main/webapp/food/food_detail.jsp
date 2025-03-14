@@ -428,13 +428,14 @@
                                 <div class="comment-form">
 
                                     <!-- Comment Form -->
-                                    <form action="#" method="post">
+                                    <form action="../reply/reply_insert.do" method="post">
                                         
                                         <div class="form-group">
-                                            <textarea name="message" id="message" cols="78" rows="4" placeholder="Message" style="float: left"></textarea>
+                                            <textarea name="msg" id="msg" cols="70" rows="4" placeholder="Message" style="float: left" required></textarea>
+                                            <input type="hidden" name="type" value="1">
+                                            <input type="hidden" name="rno" value="${vo.no }">
                                             <button type="submit" class="btn btn-primary" style="width: 100px; height: 95px; float: left">댓글 쓰기</button>
                                         </div>
-                                        
                                     </form>
                                 </div>
                              </div>
