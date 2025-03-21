@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.product__details__text .cart-icon {
+	
+}
+</style>
 </head>
 <body>
     <!-- Breadcrumb Section Begin -->
@@ -66,6 +71,7 @@
                         </div>
                         <a href="#" class="primary-btn">구매하기</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <a href="#" class="heart-icon"><span class="icon_cart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>

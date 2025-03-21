@@ -16,7 +16,6 @@ a:hover{
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-
 $(function(){
 	$('#ss').val('마포')
 	commons(1)

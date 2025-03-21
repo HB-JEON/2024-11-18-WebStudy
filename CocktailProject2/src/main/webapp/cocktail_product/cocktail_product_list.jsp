@@ -6,6 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.product__details__text .cart-icon {
+	display: inline-block;
+	font-size: 16px;
+	color: #6f6f6f;
+	padding: 13px 16px 13px;
+	background: #f5f5f5;
+}
+</style>
 </head>
 <body>
 <!-- Hero Section Begin -->
@@ -197,7 +206,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
-                                <h6><span>${totalcount }</span> Products found</h6>
+                                <h6><span>${totalcount }</span>개의 상품</h6>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3">
