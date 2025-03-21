@@ -121,19 +121,22 @@ public class RecipeModel {
     	for(String make:datas)
     	{
     		StringTokenizer st=new StringTokenizer(make,"^");
-    		mList.add(st.nextToken());
-    		iList.add(st.nextToken());
+    	    mList.add(st.nextToken());
+    	    iList.add(st.nextToken());
     	}
     	/*
-    	   <c:forEach var="make" item"${mList}">
+    	 *   <c:forEach var="make" item="${mList}">
+    	 *    
     	 */
+    	
     	ReplyVO rvo=new ReplyVO();
   	    rvo.setRno(Integer.parseInt(no));
-  	 	rvo.setType(2);
-  	 	List<ReplyVO> list=ReplyDAO.replyListData(rvo);
-  	 	int count=ReplyDAO.replyCount(rvo);
-  	 	request.setAttribute("rList", list);
-  	 	request.setAttribute("count", count);
+  	    rvo.setType(2);
+  	    List<ReplyVO> list=ReplyDAO.replyListData(rvo);
+  	    int count=ReplyDAO.replyCount(rvo);
+  	    request.setAttribute("count", count);
+  	    request.setAttribute("rList", list);
+  	    
     	request.setAttribute("vo", vo);
     	request.setAttribute("mList", mList);
     	request.setAttribute("iList", iList);

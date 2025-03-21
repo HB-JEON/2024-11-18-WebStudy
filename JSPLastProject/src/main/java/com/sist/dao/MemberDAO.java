@@ -76,4 +76,41 @@ public class MemberDAO {
 	   session.close();
 	   return vo;
    }
+   /*
+    *   <select id="memberIdFindData" resultType="String" parameterType="MemberVO">
+		   SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM project_member
+		   WHERE name=#{name} AND email=#{email}
+		  </select>
+		  
+		  <select id="memberGetEmailData" resultType="string"
+    parameterType="string"
+  >
+    SELECT COUNT(*) FROM project_member
+    WHERE email=#{email}
+  </select>
+    */
+   public static String memberIdFindData(MemberVO vo)
+   {
+	   String result="";
+	   SqlSession session=ssf.openSession();
+	   int count=session.selectOne("memberIdFindCount",vo);
+	   if(count==0)
+	   {
+		  result="no";
+	   }
+	   else
+	   {
+		  result=session.selectOne("memberIdFindData",vo);
+	   }
+	   
+	   session.close();
+	   return result;
+   }
+   public static MemberVO memberInfoData(String id)
+   {
+	   SqlSession session=ssf.openSession();
+	   MemberVO vo=session.selectOne("memberInfoData", id);
+	   session.close();
+	   return vo;
+   }
 }

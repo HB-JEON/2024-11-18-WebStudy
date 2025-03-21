@@ -34,11 +34,23 @@ public class ReplyDAO {
 		  return list;
 		  
 	  }
-	  public static void replyInsert(ReplyVO vo)
+	  public static ReplyVO replyInsert(ReplyVO vo)
 	  {
-		  SqlSession session=ssf.openSession(true);
-		  session.insert("replyInsert",vo);
-		  session.close();
+		  List<ReplyVO> list=null;
+		  SqlSession session=null;
+		  try
+		  {
+			  session=ssf.openSession();
+			  vo=session.selectOne("replyInsert", vo);
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }finally
+		  {
+			  if(session!=null)
+				  session.close();
+		  }
+		  return vo;
 	  }
 	  /*
 	   *   <select id="replyCount" resultType="int" parameterType="ReplyVO">
@@ -53,5 +65,31 @@ public class ReplyDAO {
 		  session.close();
 		  return count;
 		  
+	  }
+	  /*
+	   *   <delete id="replyDelete" parameterType="int">
+		    DELETE FROM all_comment 
+		    WHERE cno=#{cno}
+  		   </delete>
+	   */
+	  public static void replyDelete(int cno)
+	  {
+		  SqlSession session=ssf.openSession(true);
+		  session.delete("replyDelete",cno);
+		  session.close();
+	  }
+	  
+	  /*
+	   *   <update id="replyUpdate" parameterType="ReplyVO">
+		    UPDATE all_comment SET
+		    msg=#{msg}
+		    WHERE cno=#{cno}
+		  </update>
+	   */
+	  public static void replyUpdate(ReplyVO vo)
+	  {
+		  SqlSession session=ssf.openSession(true);
+		  session.update("replyUpdate",vo);
+		  session.close();
 	  }
 }

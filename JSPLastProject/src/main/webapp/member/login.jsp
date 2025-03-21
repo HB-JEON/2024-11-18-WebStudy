@@ -6,9 +6,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+<style type="text/css">
+#login img{
+  margin: 10px 0;
+}
+#login .center {
+  text-align: center;
+}
+
+#login .login {
+  max-width: 300px;
+	margin: 35px auto;
+}
+
+#login .login-form{
+  padding:0px 25px;
+}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
+	$('#canBtn').click(function(){
+		parent.Shadowbox.close()
+	})
 	$('#logBtn').click(function(){
 		let id=$('#id').val()
 		if(id.trim()==="")
@@ -33,14 +53,14 @@ $(function(){
 				// NOID , NOPWD , OK
 				if(result==='NOID')
 				{
-					alert("아이디를 확인 해주세요.")
+					alert("아이디 존재하지 않습니다")
 					$('#id').val("")
 					$('#pwd').val("")
 					$('#id').focus()
 				}
 				else if(result==='NOPWD')
 				{
-					alert("비밀번호를 확인 해주세요.")
+					alert("비밀번호가 틀립니다")
 					$('#pwd').val("")
 					$('#pwd').focus()
 				}

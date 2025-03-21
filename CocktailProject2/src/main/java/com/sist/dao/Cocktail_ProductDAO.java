@@ -35,20 +35,6 @@ public class Cocktail_ProductDAO {
 		    WHERE product_no=#{product_no}
 		</update>
 	 */
-	public static Cocktail_ProductVO cocktail_productRandomData()
-	{
-		SqlSession session=ssf.openSession();
-		Cocktail_ProductVO vo=session.selectOne("cocktail_productRandomData");
-		session.close();
-		return vo;
-	}
-	public static List<Cocktail_ProductVO> cocktail_productRandomData12()
-	{
-		SqlSession session=ssf.openSession();
-		List<Cocktail_ProductVO> list=session.selectList("cocktail_productRandomData12");
-		session.close();
-		return list;
-	}
 	public static List<Cocktail_ProductVO> cocktail_productListData(Map map)
 	{
 		SqlSession session=ssf.openSession();
@@ -56,13 +42,20 @@ public class Cocktail_ProductDAO {
 		session.close();
 		return list;
 	}
-	public static int cocktail_productTotalPage()
+	public static int cocktail_productTotalPage(Map map)
 	{
 		
 		SqlSession session=ssf.openSession();
-		int total=session.selectOne("cocktail_productTotalPage");
+		int total=session.selectOne("cocktail_productTotalPage", map);
 		session.close();
 		return total;
+	}
+	public static int cocktail_productTotalCount(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		int totalcount=session.selectOne("cocktail_productTotalCount", map);
+		session.close();
+		return totalcount;
 	}
 	public static Cocktail_ProductVO cocktail_productDetailData(int product_no)
 	{
@@ -92,5 +85,26 @@ public class Cocktail_ProductDAO {
 		int total=session.selectOne("cocktail_productFindTotalPage", map);
 		session.close();
 		return total;
+	}
+	public static Cocktail_ProductVO cocktail_productCnoRandomData(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		Cocktail_ProductVO vo=session.selectOne("cocktail_productCnoRandomData", map);
+		session.close();
+		return vo;
+	}
+	public static List<Cocktail_ProductVO> cocktail_productCnoRandomData4(int cno)
+	{
+		SqlSession session=ssf.openSession();
+		List<Cocktail_ProductVO> list=session.selectList("cocktail_productCnoRandomData4", cno);
+		session.close();
+		return list;
+	}
+	public static List<Cocktail_ProductVO> cocktail_productCnoRandomData12(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		List<Cocktail_ProductVO> list=session.selectList("cocktail_productCnoRandomData12", map);
+		session.close();
+		return list;
 	}
 }

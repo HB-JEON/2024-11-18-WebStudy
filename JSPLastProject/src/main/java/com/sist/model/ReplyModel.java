@@ -15,8 +15,7 @@ public class ReplyModel {
   private String[] urls={"","food/food_detail.do?fno=",
 		  "recipe/recipe_detail.do?no=","",""};
   @RequestMapping("reply/reply_insert.do")
-  public String reply_insert(HttpServletRequest request,
-		  HttpServletResponse response)
+  public String reply_insert(HttpServletRequest request, HttpServletResponse response)
   {
 	  String rno=request.getParameter("rno");
 	  String type=request.getParameter("type");
@@ -26,6 +25,13 @@ public class ReplyModel {
 	  String id=(String)session.getAttribute("id");
 	  String name=(String)session.getAttribute("name");
 	  String sex=(String)session.getAttribute("sex");
+	  
+	  System.out.println(msg);  // 데이터 확인
+	  System.out.println(rno);
+	  System.out.println(type);
+	  System.out.println(id);
+	  System.out.println(name);
+	  System.out.println(sex);
 	  
 	  ReplyVO vo=new ReplyVO();
 	  vo.setId(id);
@@ -38,6 +44,32 @@ public class ReplyModel {
 	  
 	  ReplyDAO.replyInsert(vo);
 	  
+	  return "redirect:../"+urls[Integer.parseInt(type)]+rno;
+  }
+  // ?cno=${rvo.cno }&rno=${rvo.rno }&type=1
+  @RequestMapping("reply/reply_delete.do")
+  public String reply_delete(HttpServletRequest request, HttpServletResponse response)
+  {
+	  String cno=request.getParameter("cno");
+	  String rno=request.getParameter("rno");
+	  String type=request.getParameter("type");
+	  
+	  ReplyDAO.replyDelete(Integer.parseInt(cno));
+	  return "redirect:../"+urls[Integer.parseInt(type)]+rno;
+  }
+  @RequestMapping("reply/reply_update.do")
+  public String reply_update(HttpServletRequest request, HttpServletResponse response)
+  {
+	  String cno=request.getParameter("cno");
+	  String rno=request.getParameter("rno");
+	  String type=request.getParameter("type");
+	  String msg=request.getParameter("msg");
+	  
+	  ReplyVO vo=new ReplyVO();
+	  vo.setCno(Integer.parseInt(cno));
+	  vo.setMsg(msg);
+	  
+	  ReplyDAO.replyUpdate(vo);
 	  return "redirect:../"+urls[Integer.parseInt(type)]+rno;
   }
 }
