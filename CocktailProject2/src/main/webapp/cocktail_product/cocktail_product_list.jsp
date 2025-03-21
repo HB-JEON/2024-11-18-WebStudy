@@ -163,7 +163,6 @@
             <!-- 사이드바 끝 -->
 
             <!-- 상품 목록 시작 -->
-           
             <div class="col-lg-9 col-md-7">
                 <div class="product__discount">
                         <div class="section-title product__discount__title">
@@ -253,8 +252,8 @@
                     </ul>
                 </div>
             </div>
-            <!-- 상품 목록 끝 -->
-        </div>
+          </div>
+        <!-- 상품 목록 끝 -->
       </div>
     </div>
 </section>

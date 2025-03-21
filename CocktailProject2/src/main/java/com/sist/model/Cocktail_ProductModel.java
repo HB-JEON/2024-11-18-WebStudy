@@ -46,6 +46,7 @@ public class Cocktail_ProductModel {
 		if(endPage>totalpage)
 			endPage=totalpage;
 		
+		// 카테고리별로 나누기
 		Cocktail_ProductVO vo=Cocktail_ProductDAO.cocktail_productCnoRandomData(map);
 		List<Cocktail_ProductVO> rList=Cocktail_ProductDAO.cocktail_productCnoRandomData12(map);
 		
@@ -53,6 +54,7 @@ public class Cocktail_ProductModel {
 		request.setAttribute("rList", rList);
 		request.setAttribute("cno", cno);
 		
+		// 쿠키
 		List<Cocktail_ProductVO> cList=new ArrayList<Cocktail_ProductVO>();
 		Cookie[] cookies=request.getCookies();
 		if(cookies!=null)
@@ -76,6 +78,11 @@ public class Cocktail_ProductModel {
 			cList4.add(cList.subList(i, end));
 		}
 		
+		// price int 변환
+//		String priceInt=vo.getPrice();
+//		priceInt=priceInt.replaceAll("[^0-9]", "");
+//		int price=Integer.parseInt(priceInt);
+//        vo.setPrice(priceInt);
 		
 		request.setAttribute("cList", cList);
 		request.setAttribute("cList4", cList4);
@@ -137,12 +144,14 @@ public class Cocktail_ProductModel {
 		String page=request.getParameter("page");
 		String fd=request.getParameter("fd");
 		String ss=request.getParameter("ss");
+		String cno=request.getParameter("cno");
 		int curpage=Integer.parseInt(page);
 		Map map=new HashMap();
 		map.put("start", (20*curpage)-19);
 		map.put("end", 20*curpage);
 		map.put("ss", ss);
 		map.put("fd",fd);
+		map.put("cno", cno);
 		List<Cocktail_ProductVO> list=Cocktail_ProductDAO.cocktail_productFindData(map);
 		int totalpage=Cocktail_ProductDAO.cocktail_productFindTotalPage(map);
 		  

@@ -30,6 +30,21 @@ public class CocktailDAO {
 		}
 		return list;
 	}
+	public static List<CocktailVO> cocktailData4()
+	{
+		SqlSession session = null;
+		List<CocktailVO> list = null;
+		try {
+			session = ssf.openSession();
+			list = session.selectList("cocktailData4");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally
+		{
+			if(session!=null) session.close();
+		}
+		return list;
+	}
 	public static List<CocktailVO> cocktailRecipeData(int cno)
 	{
 		SqlSession session = null;
@@ -64,13 +79,13 @@ public class CocktailDAO {
 		}
 		return list;
 	}
-	public static int cocktailTotalPage()
+	public static int cocktailTotalPage(String detail)
 	{
 		SqlSession session = null;
 		int total = 0;
 		try {
 			session = ssf.openSession();
-			total = session.selectOne("cocktailTotalPage");
+			total = session.selectOne("cocktailTotalPage",detail);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -143,6 +158,109 @@ public class CocktailDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally
+		{
+			if(session!=null) session.close();
+		}
+		return list;
+	}
+	public static List<CocktailVO> ingredientsListData(Map map)
+	{
+		SqlSession session = null;
+		List<CocktailVO> list = null;
+		try {
+			session = ssf.openSession();
+			list = session.selectList("ingredientsListData",map);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null) session.close();
+		}
+		return list;
+	}
+	public static int ingredientsTotalPage()
+	{
+		SqlSession session = null;
+		int total = 0;
+		try {
+			session = ssf.openSession();
+			total = session.selectOne("ingredientsTotalPage");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null) session.close();
+		}
+		return total;
+	}
+	
+	public static List<CocktailVO> cocktailFindData(Map map)
+	{
+		SqlSession session = null;
+		List<CocktailVO> list = null;
+		try {
+			session = ssf.openSession();
+			list = session.selectList("cocktailFindData",map);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null) session.close();
+		}
+		return list;
+	}
+	public static int cocktailFindCount(String ss)
+	{
+		SqlSession session = null;
+		int count = 0;
+		try {
+			session = ssf.openSession();
+			count = session.selectOne("cocktailFindCount",ss);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null) session.close();
+		}
+		return count;
+	}
+	
+	public static CocktailVO ingredientsDetailData(int no)
+	{
+		SqlSession session = null;
+		CocktailVO vo = null;
+		try {
+			session=ssf.openSession();
+			vo=session.selectOne("ingredientsDetailData",no);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally {
+			if(session!=null) session.close();
+		}
+		return vo;
+	}
+	public static List<CocktailVO> ingredientsMakeList(int no)
+	{
+		SqlSession session = null;
+		List<CocktailVO> list = null;
+		try {
+			session = ssf.openSession();
+			list = session.selectList("ingredientsMakeList",no);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
 		{
 			if(session!=null) session.close();
 		}

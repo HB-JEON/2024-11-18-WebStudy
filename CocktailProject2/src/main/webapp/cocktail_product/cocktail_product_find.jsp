@@ -6,9 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.product__details__text .cart-icon {
+	display: inline-block;
+	font-size: 16px;
+	color: #6f6f6f;
+	padding: 13px 16px 13px;
+	background: #f5f5f5;
+}
+</style>
 </head>
 <body>
-
 <!-- Hero Section Begin -->
     <section class="hero hero-normal">
         <div class="container">
@@ -135,7 +143,7 @@
                              <c:forEach var="pageList" items="${cList4 }">
                                 <div class="latest-prdouct__slider__item">
                                   <c:forEach var="cvo" items="${pageList }">
-                                    <a href="../cocktail_product_detail.do?product_no=${cvo.product_no }" class="latest-product__item">
+                                    <a href="../cocktail_product_detail.do?product_no=${cvo.product_no }&cno=${cvo.cno }" class="latest-product__item">
                                         <div class="latest-product__item__pic">
                                             <img src="${cvo.poster }">
                                         </div>
@@ -166,7 +174,7 @@
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg">
-                                          <a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }"><img src="${vo.poster }" style="width: 100%; height: 200px;"></a>
+                                          <a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }"><img src="${vo.poster }" style="width: 100%; height: 200px;"></a>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -174,7 +182,7 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <h5><a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }">${vo.name }</a></h5>
+                                            <h5><a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }">${vo.name }</a></h5>
                                             <div class="product__item__price">${vo.price }</div>
                                         </div>
                                     </div>
@@ -197,7 +205,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
-                                <h6><span>${totalcount }</span> Products found</h6>
+                                <h6><span>${totalcount }</span>개의 상품</h6>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3">
@@ -214,7 +222,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg">
-                                    <a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }"><img src="${vo.poster}" style="width: 100%; height: 200px;"></a>
+                                    <a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }"><img src="${vo.poster}" style="width: 100%; height: 200px;"></a>
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -222,7 +230,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }">${vo.name}</a></h6>
+                                    <h6><a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }">${vo.name}</a></h6>
                                     <h5>${vo.price}</h5>
                                 </div>
                             </div>
@@ -233,19 +241,19 @@
                 <div class="product__pagination">
                     <ul class="pagination">
                         <c:if test="${startPage>1 }">
-                        <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${curpage-1 }"><i class="fa fa-long-arrow-left"></i></a>
+                        <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${startPage-1 }"><i class="fa fa-long-arrow-left"></i></a>
                         </c:if>
                         <c:forEach var="i" begin="${startPage }" end="${endPage }">
                         <a class="${i==curpage?'active':'' }" href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${i }">${i }</a>
                         </c:forEach>
-                        <c:if test="${curpage<totalpage }">
+                        <c:if test="${endPage<totalpage }">
                         <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${endPage+1 }"><i class="fa fa-long-arrow-right"></i></a>
                         </c:if>
                     </ul>
                 </div>
             </div>
-            <!-- 상품 목록 끝 -->
-        </div>
+          </div>
+        <!-- 상품 목록 끝 -->
       </div>
     </div>
 </section>

@@ -51,14 +51,29 @@
    hit=hit+1
    WHERE product_no=#{product_no}
  </update>
-  <!-- 상품 검색 --> 
+  <!-- 상품 검색 (fd : 검색 필드) (ss : 검색어) --> 
   <select id="cocktail_productFindData" resultType="Cocktail_ProductVO" parameterType="hashmap">
     SELECT product_no, name, type, price, poster, deliver, alc, volumn, loc, content, cno, hit, num
     FROM (SELECT product_no, name, type, price, poster, deliver, alc, volumn, loc, content, cno, hit, rownum as num 
-    FROM (SELECT /*+ INDEX_ASC(cocktail_product c_prod_product_no_pk)*/product_no, name, type, price, poster, deliver, alc, volumn, loc, content, cno, hit
-    FROM cocktail_product 
-    WHERE ${fd} LIKE '%'||#{ss}||'%'))
-    WHERE num BETWEEN #{start} AND #{end}
+    FROM (
+    <choose> 
+      <!-- 기존 코드 -->
+      <when test="ss != null and ss != ''">
+        SELECT /*+ INDEX_ASC(cocktail_product c_prod_product_no_pk)*/product_no, name, type, price, poster, deliver, alc, volumn, loc, content, cno, hit
+        FROM cocktail_product 
+        WHERE ${fd} LIKE '%'||#{ss}||'%'
+      </when>
+      <!-- 검색어가 없는 경우 (null 값이거나 '' 공백일 때) 무작위로 가져오는 코드 진행 -->
+      <otherwise>
+        SELECT product_no, name, type, price, deliver, alc, volumn, loc, content, cno, hit
+        FROM cocktail_project
+        WHERE cno=#{cno}
+        ORDER BY DBMS_RANDOM.RANDOM)
+        WHERE rownum&lt;=15
+      </otherwise>
+    </choose>
+     ))
+     WHERE num BETWEEN #{start} AND #{end}
   </select>
   <select id="cocktail_productFindTotalPage" resultType="int" parameterType="hashmap">
     SELECT CEIL(COUNT(*)/12.0) 
