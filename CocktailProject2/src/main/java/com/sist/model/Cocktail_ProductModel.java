@@ -117,7 +117,7 @@ public class Cocktail_ProductModel {
 		Cookie cookie=new Cookie("product_no_"+product_no, product_no);
 		cookie.setPath("/");
 		cookie.setMaxAge(60^60*24);
-		// 전송
+		// 전송 
 		response.addCookie(cookie);
 		// 화면 이동
 		return "redirect:cocktail_product_detail.do?product_no="+product_no+"&cno="+cno;
