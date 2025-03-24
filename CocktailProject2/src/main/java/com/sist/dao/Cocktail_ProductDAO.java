@@ -86,6 +86,13 @@ public class Cocktail_ProductDAO {
 		session.close();
 		return total;
 	}
+	public static List<Cocktail_ProductVO> cocktail_productFindRandomData(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		List<Cocktail_ProductVO> list=session.selectList("cocktail_productFindRandomData", map);
+		session.close();
+		return list;
+	}
 	public static Cocktail_ProductVO cocktail_productCnoRandomData(Map map)
 	{
 		SqlSession session=ssf.openSession();

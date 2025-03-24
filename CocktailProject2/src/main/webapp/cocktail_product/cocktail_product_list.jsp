@@ -168,13 +168,13 @@
                         <div class="section-title product__discount__title">
                             <h2>추천 상품</h2>
                         </div>
-                  <div class="row">      
+                  <div class="row">
                             <div class="product__discount__slider owl-carousel">
                               <c:forEach var="vo" items="${rList }" varStatus="s">
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg">
-                                          <a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }"><img src="${vo.poster }" style="width: 100%; height: 200px;"></a>
+                                          <a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }&sort=${sort }"><img src="${vo.poster }" style="width: 100%; height: 200px;"></a>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -182,7 +182,7 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <h5><a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }">${vo.name }</a></h5>
+                                            <h5><a href="../cocktail_product/cocktail_product_detail_before.do?product_no=${vo.product_no }&cno=${vo.cno }&sort=${sort }">${vo.name }</a></h5>
                                             <div class="product__item__price">${vo.price }</div>
                                         </div>
                                     </div>
@@ -194,15 +194,19 @@
                 <div class="filter__item">
                     <div class="row">
                         <div class="col-lg-4 col-md-5">
-                            <div class="filter__sort">
-                                <span>Sort By</span>
-                                <select>
-                                    <option value="0">Default</option>
-                                    <option value="1">Price Low to High</option>
-                                    <option value="2">Price High to Low</option>
-                                </select>
-                            </div>
-                        </div>
+    <div class="filter__sort">
+        <form method="GET" action="cocktail_product_list.do" id="sortForm">
+            <input type="hidden" name="cno" value="${cno}"/>
+            <input type="hidden" name="page" value="${curpage}"/>
+            <select name="sort" onchange="document.getElementById('sortForm').submit()" style="padding:5px;">
+                <option value="0" <c:if test="${sort == '0'}">selected</c:if>>Default</option>
+                <option value="1" <c:if test="${sort == '1'}">selected</c:if>>Low to High</option>
+                <option value="2" <c:if test="${sort == '2'}">selected</c:if>>Price High to Low</option>
+            </select>
+        </form>
+    </div>
+</div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
                                 <h6><span>${totalcount }</span>개의 상품</h6>
@@ -241,13 +245,13 @@
                 <div class="product__pagination">
                     <ul class="pagination">
                         <c:if test="${startPage>1 }">
-                        <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${startPage-1 }"><i class="fa fa-long-arrow-left"></i></a>
+                        <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${startPage-1 }&sort=${sort }"><i class="fa fa-long-arrow-left"></i></a>
                         </c:if>
                         <c:forEach var="i" begin="${startPage }" end="${endPage }">
-                        <a class="${i==curpage?'active':'' }" href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${i }">${i }</a>
+                        <a class="${i==curpage?'active':'' }" href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${i }&sort=${sort }">${i }</a>
                         </c:forEach>
                         <c:if test="${endPage<totalpage }">
-                        <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${endPage+1 }"><i class="fa fa-long-arrow-right"></i></a>
+                        <a href="../cocktail_product/cocktail_product_list.do?cno=${cno }&page=${endPage+1 }&sort=${sort }"><i class="fa fa-long-arrow-right"></i></a>
                         </c:if>
                     </ul>
                 </div>
