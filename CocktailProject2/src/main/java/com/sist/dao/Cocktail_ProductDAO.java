@@ -40,6 +40,19 @@ public class Cocktail_ProductDAO {
 		SqlSession session=ssf.openSession();
 		List<Cocktail_ProductVO> list=session.selectList("cocktail_productListData", map);
 		session.close();
+		for(Cocktail_ProductVO vo:list)
+		{
+			String priceStr=vo.getPrice();
+			priceStr=priceStr.replaceAll("[^0-9]", "");
+			if(!priceStr.isEmpty())
+			{
+				vo.setPriceInt(Integer.parseInt(priceStr));
+			}
+			else
+			{
+				vo.setPriceInt(0);
+			}
+		}
 		return list;
 	}
 	public static int cocktail_productTotalPage(Map map)
@@ -98,6 +111,19 @@ public class Cocktail_ProductDAO {
 		SqlSession session=ssf.openSession();
 		Cocktail_ProductVO vo=session.selectOne("cocktail_productCnoRandomData", map);
 		session.close();
+		if(vo!=null)
+		{
+			String priceStr=vo.getPrice();
+			priceStr=priceStr.replaceAll("[^0-9]", "");
+			if(!priceStr.isEmpty())
+			{
+				vo.setPriceInt(Integer.parseInt(priceStr));
+			}
+			else
+			{
+				vo.setPriceInt(0);
+			}
+		}
 		return vo;
 	}
 	public static List<Cocktail_ProductVO> cocktail_productCnoRandomData4(int cno)
@@ -113,5 +139,11 @@ public class Cocktail_ProductDAO {
 		List<Cocktail_ProductVO> list=session.selectList("cocktail_productCnoRandomData12", map);
 		session.close();
 		return list;
+	}
+	public static Map cocktail_productPriceData(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		Map priceRange=session.selectOne("cocktail_productPriceData", map);
+		return priceRange;
 	}
 }

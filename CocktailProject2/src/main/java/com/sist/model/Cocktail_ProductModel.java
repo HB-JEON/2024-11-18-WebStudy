@@ -13,11 +13,14 @@ import org.json.simple.JSONObject;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.Cocktail_ProductDAO;
+import com.sist.dao.JjimDAO;
 import com.sist.vo.Cocktail_ProductVO;
+import com.sist.vo.JjimVO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import oracle.net.ns.SessionAtts;
 
 @Controller
@@ -25,6 +28,7 @@ public class Cocktail_ProductModel {
 	 @RequestMapping("cocktail_product/cocktail_product_list.do")
 	 public String cocktail_product_list(HttpServletRequest request, HttpServletResponse response)
 	 {
+		 // Page
 		String page=request.getParameter("page");
 		if(page==null)
 			  page="1";
@@ -50,7 +54,7 @@ public class Cocktail_ProductModel {
 		if(endPage>totalpage)
 			endPage=totalpage;
 		
-		// 카테고리별로 나누기
+		// Category
 		Cocktail_ProductVO vo=Cocktail_ProductDAO.cocktail_productCnoRandomData(map);
 		List<Cocktail_ProductVO> rList=Cocktail_ProductDAO.cocktail_productCnoRandomData12(map);
 		
@@ -58,7 +62,7 @@ public class Cocktail_ProductModel {
 		request.setAttribute("rList", rList);
 		request.setAttribute("cno", cno);
 		
-		// 쿠키
+		// Cookie
 		List<Cocktail_ProductVO> cList=new ArrayList<Cocktail_ProductVO>();
 		Cookie[] cookies=request.getCookies();
 		if(cookies!=null)
@@ -82,6 +86,7 @@ public class Cocktail_ProductModel {
 			cList4.add(cList.subList(i, end));
 		}
 		
+		// Sort
 		String priceStr=vo.getPrice();
 		priceStr=priceStr.replaceAll("[^0-9]", "");
 		vo.setPriceInt(Integer.parseInt(priceStr));
@@ -96,6 +101,19 @@ public class Cocktail_ProductModel {
 			break;
 		}
 		
+		// Jjim
+//		String product_no=request.getParameter("product_no");
+//		JjimVO jvo=new JjimVO();
+//		jvo.setRno(Integer.parseInt(product_no));
+//		jvo.setType(1);
+//		HttpSession session=request.getSession();
+//		String id=(String)session.getAttribute("id");
+//		if(id!=null)
+//		{
+//			jvo.setId(id);
+//			int jCount=JjimDAO.jjimCheckCount(jvo);
+//			request.setAttribute("jCount", jCount);
+//		}
 		
 		request.setAttribute("cList", cList);
 		request.setAttribute("cList4", cList4);
@@ -143,6 +161,18 @@ public class Cocktail_ProductModel {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
+		
+//		JjimVO jvo=new JjimVO();
+//		jvo.setRno(Integer.parseInt(product_no));
+//		jvo.setType(1);
+//		HttpSession session=request.getSession();
+//		String id=(String)session.getAttribute("id");
+//		if(id!=null)
+//		{
+//			int jCount=JjimDAO.jjimCheckCount(jvo);
+//			request.setAttribute("jCount", jCount);
+//		}
+		
 		return "../main/main.jsp";
 	}
 	@RequestMapping("cocktail_product/cocktail_product_find.do")

@@ -59,13 +59,6 @@
     )
     WHERE rownum&lt;=12
   </select>
-  <select id="cocktail_productFindRandomData12" resultType="Cocktail_ProductVO" parameterType="hashmap">
-    SELECT * FROM (SELECT * FROM cocktail_product
-    WHERE cno=#{cno}
-    ORDER BY DBMS_RANDOM.RANDOM
-    )
-    WHERE rownum&lt;=12
-  </select>
   <select id="cocktail_productFindTotalPage" resultType="int" parameterType="hashmap">
     SELECT CEIL(COUNT(*)/12.0) 
     FROM cocktail_product
@@ -92,5 +85,15 @@
     ORDER BY DBMS_RANDOM.RANDOM
     )
     WHERE rownum&lt;=12
+  </select>
+  <select id="cocktail_productPriceData" resultType="map" parameterType="hashmap">
+    SELECT MIN(TO_NUMBER(REGEXP_REPLACE(price, '[^0-9]', ''))) AS minPrice,
+           MAX(TO_NUMBER(REGEXP_REPLACE(price, '[^0-9]', ''))) AS maxPrice
+    FROM cocktail_product
+    <where>
+      <if test="cno != null">
+        AND cno=#{cno}
+      </if>
+    </where>
   </select>
 </mapper>

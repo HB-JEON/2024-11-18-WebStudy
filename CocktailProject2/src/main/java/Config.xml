@@ -5,11 +5,16 @@
  <configuration>
  <properties resource="db.properties" />
   <typeAliases >
-  <typeAlias type="com.sist.vo.Cocktail_ProductVO" alias="Cocktail_ProductVO"/>
   <typeAlias type="com.sist.vo.CocktailbarVO" alias="CocktailbarVO"/>
   <typeAlias type="com.sist.vo.CocktailVO" alias="CocktailVO"/>
   <typeAlias type="com.sist.vo.ProductVO" alias="ProductVO"/>
   <typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
+  <typeAlias type="com.sist.vo.CommunityFreeboardVO" alias="CommunityFreeboardVO"/>
+  <typeAlias type="com.sist.vo.CocktailMemberVO" alias="CocktailMemberVO"/>
+  <typeAlias type="com.sist.vo.Product2VO" alias="Product2VO"/>
+  <typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
+  <typeAlias type="com.sist.vo.Cocktail_ProductVO" alias="Cocktail_ProductVO"/>
+  <typeAlias type="com.sist.vo.JjimVO" alias="JjimVO"/>
   </typeAliases>
   <environments default="development">
   	<environment id="development">
@@ -23,10 +28,15 @@
   	</environment>
   </environments>
   <mappers>
-    <mapper resource="com/sist/mapper/cocktail_product-mapper.xml"/>
   	<mapper resource="com/sist/mapper/cocktailbar-mapper.xml"/>
   	<mapper resource="com/sist/mapper/cocktail-mapper.xml"/>
   	<mapper resource="com/sist/mapper/product-mapper.xml"/>
   	<mapper resource="com/sist/mapper/news-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/community-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/cocktailmember-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/product2-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/reply-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/cocktail_product-mapper.xml"/>
+  	<mapper resource="com/sist/mapper/jjim-mapper.xml"/>
   </mappers>
  </configuration>

@@ -25,39 +25,41 @@
         <div class="humberger__menu__widget">
 
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> 로그인</a>
-            </div>
+			    <a href="../member/login.do"><i class="fa fa-user"></i> 로그인</a>
+			    <span>/</span>
+			    <a href="../member/join.do">회원가입</a>
+			</div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
                       <ul>
-                            <li><a href="#">칵테일</a>
+                             <li><a href="#">칵테일</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="cocktail/cocktail_list.jsp">칵테일 목록</a></li>
-                                    <li><a href="./shoping-cart.html">재료 목록</a></li>
+                                    <li><a href="../cocktail/cocktail_list.do">칵테일 목록</a></li>
+                                    <li><a href="../cocktail/cocktail_ingredients.do">재료 목록</a></li>
+                                    <li><a href="../cocktail/cocktail_my.do">나만의 칵테일</a></li>
                                     <li><a href="../cocktail/cocktail_find.do">칵테일 검색</a></li>
-                                    <li><a href="./checkout.html">나만의 칵테일</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">칵테일바</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">칵테일바 목록</a></li>
+                                    <li><a href="../cocktailbar/cocktailbar_list.do">칵테일바 목록</a></li>
                                     <li><a href="./shoping-cart.html">칵테일바 관리</a></li>
                                     <c:if test="${sessionScope.id!=null }">
                                     <li><a href="./checkout.html">칵테일바 예약</a></li>
                                     </c:if>
                                 </ul>
                             </li>
-                            <li><a href="#">상품</a>
+                             <li><a href="#">상품</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="../cocktail_product/cocktail_product_list.do">주류 상품 목록</a></li>
-                                    <li><a href="./shoping-cart.html">용품 목록</a></li>
-                                    <li><a href="../cocktail_product/cocktail_product_find.do">주류 상품 검색</a></li>
-                                    <li><a href="./shoping-cart.html">용품 검색</a></li>
+                                    <li><a href="../cocktail_product/cocktail_product_list.do">주류상품 목록</a></li>
+                                    <li><a href="../product2/product_list.do">칵테일용품 목록</a></li>
+                                    <li><a href="./shoping-cart.html">주류상품 검색</a></li>
+                                    <li><a href="../product2/product_find.do">칵테일용품 검색</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">커뮤니티</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">자유게시판</a></li>
+                                    <li><a href="../community/freeboard_list.do">자유게시판</a></li>
                                     <li><a href="./shoping-cart.html">묻고 답하기</a></li>
                                     <li><a href="./checkout.html">공지사항</a></li>
                                     <c:if test="${sessionScope.id!=null }">
@@ -66,11 +68,11 @@
                                 </ul>
                             </li>
                             <c:if test="${sessionScope.id!=null }">
-                            <c:if test="${sessionScope.admin='n' }">
-                            <li><a href="./contact.html">마이페이지</a></li>
+                            <c:if test="${sessionScope.admin=='n' }">
+                            <li><a href="../mypage/my_main.do">마이페이지</a></li>
                             </c:if>
-                            <c:if test="${sessionScope.admin='y' }">
-                            <li><a href="./contact.html">관리자페이지</a></li>
+                            <c:if test="${sessionScope.admin=='y' }">
+                            <li><a href="../adminpage/admin_main.do">관리자페이지</a></li>
                             </c:if>
                             </c:if>
                         </ul>
@@ -80,7 +82,7 @@
         <div class="humberger__menu__contact">
             <ul>
             <c:if test="${sessionScope.id!=null }">
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li><i class="fa fa-envelope"></i> ${sessionScope.email}&nbsp;&nbsp;</li>
                 <li>Free Shipping for all Order of $99</li>
               </c:if>
             </ul>
@@ -97,8 +99,10 @@
                         <div class="header__top__left">
                             <ul>
                             <c:if test="${sessionScope.id!=null }">
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                                <li><i class="fa fa-envelope"></i> ${sessionScope.email}&nbsp;&nbsp;</li>
+                                <li>${sessionScope.name}(${sessionScope.admin eq 'y' ? "관리자":"회원" })님 환영합니다.❤️&nbsp;&nbsp;</li>
+                                <!-- ${sessionScope.name}
+                                	<c:if test="${sessionScope.admin eq 'y'}">(관리자)</c:if> == 관리자만 표시 -->
                               </c:if>
                             </ul>
                         </div>
@@ -106,8 +110,15 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
             
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> 로그인</a>
+                            <div class="header__top__right__auth" style="display:flex; flex-direction: row; justify-content:end">
+                            	<c:if test="${sessionScope.id==null }">
+                                <a href="../member/login.do"><i class="fa fa-user"></i> 로그인</a>
+                                 <span>/</span>
+                                <a href="../member/join.do">회원가입</a>
+                                </c:if>
+                                <c:if test="${sessionScope.id!=null }">
+                                <a href="../member/logout.do" class="btn btn-outline-danger">로그아웃</a>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -124,17 +135,17 @@
                 <div class="col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="#">칵테일</a>
+                             <li><a href="#">칵테일</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="../cocktail/cocktail_list.do">칵테일 목록</a></li>
-                                    <li><a href="./shoping-cart.html">재료 목록</a></li>
-                                    <li><a href="./checkout.html">나만의 칵테일</a></li>
+                                    <li><a href="../cocktail/cocktail_ingredients.do">재료 목록</a></li>
+                                    <li><a href="../cocktail/cocktail_my.do">나만의 칵테일</a></li>
                                     <li><a href="../cocktail/cocktail_find.do">칵테일 검색</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">칵테일바</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="#">칵테일바 목록</a></li>
+                                    <li><a href="../cocktailbar/cocktailbar_list.do">칵테일바 목록</a></li>
                                     <li><a href="#">칵테일바 관리</a></li>
                                     <c:if test="${sessionScope.id!=null }">
                                     <li><a href="#">칵테일바 예약</a></li>
@@ -143,15 +154,16 @@
                             </li>
                             <li><a href="#">상품</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="../cocktail_product/cocktail_product_list.do">주류 상품 목록</a></li>
+                                    <li><a href="../cocktail_product/cocktail_product_list.do">주류상품 목록</a></li>
+                                    <li><a href="../product2/product_list.do">칵테일용품 목록</a></li>
                                     <li><a href="./shoping-cart.html">용품 목록</a></li>
-                                    <li><a href="../cocktail_product/cocktail_product_find.do">주류 상품 검색</a></li>
-                                    <li><a href="./shoping-cart.html">용품 검색</a></li>
+                                    <li><a href="./shoping-cart.html">주류상품 검색</a></li>
+                                    <li><a href="../product2/product_find.do">칵테일용품 검색</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">커뮤니티</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="#">자유게시판</a></li>
+                                    <li><a href="../community/freeboard_list.do">자유게시판</a></li>
                                     <li><a href="#">묻고 답하기</a></li>
                                     <li><a href="#">공지사항</a></li>
                                     <c:if test="${sessionScope.id!=null }">
@@ -161,10 +173,12 @@
                             </li>
                             <c:if test="${sessionScope.id!=null }">
                             <c:if test="${sessionScope.admin=='n' }">
-                            <li><a href="#">마이페이지</a></li>
+                             <li><a href="../mypage/my_main.do">마이페이지</a>
+
                             </c:if>
                             <c:if test="${sessionScope.admin=='y' }">
-                            <li><a href="#">관리자페이지</a></li>
+                            <li><a href="../adminpage/admin_main.do">관리자페이지</a>
+
                             </c:if>
                             </c:if>
                         </ul>
