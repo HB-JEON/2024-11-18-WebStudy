@@ -153,6 +153,7 @@ public class Cocktail_ProductModel {
 		int rcno=Integer.parseInt(cno);
 		List<Cocktail_ProductVO> rList4=Cocktail_ProductDAO.cocktail_productCnoRandomData4(rcno);
 		
+		request.setAttribute("product_no", product_no);
 		request.setAttribute("cno", cno);
 		request.setAttribute("vo", vo);
 		request.setAttribute("rList4", rList4);

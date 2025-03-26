@@ -13,7 +13,7 @@
   </insert>
   <resultMap type="CartVO" id="cartMap">
     <result property="gvo.goods_name" column="goods_name"/>
-    <result property="gvo.goods_poster" column="goodsposter"/>
+    <result property="gvo.goods_poster" column="goods_poster"/>
     <result property="gvo.goods_price" column="goods_price"/>
   </resultMap>
   <select id="cartListData" resultMap="cartMap" parameterType="string">

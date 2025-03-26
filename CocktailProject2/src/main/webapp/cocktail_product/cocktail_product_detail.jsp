@@ -11,7 +11,73 @@
 .product__details__text .cart-icon {
 	
 }
+.pro-qty {
+	width: 140px;
+	height: 50px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	background: #f5f5f5;
+	margin-bottom: 5px;
+}
+
+.pro-qty input {
+	height: 100%;
+	width: 100%;
+	font-size: 16px;
+	color: #6f6f6f;
+	width: 50px;
+	border: none;
+	background: #f5f5f5;
+	text-align: center;
+}
+
+.pro-qty .qtybtn {
+	width: 35px;
+	font-size: 16px;
+	color: #6f6f6f;
+	cursor: pointer;
+	display: inline-block;
+}
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.pro-qty').on('click', function(e) {
+        // 클릭한 대상이 input이면 아무 작업하지 않음 (수동 입력 방지)
+        if ($(e.target).is('input')) return
+
+        var $container = $(this)
+        var posX = e.offsetX // .pro-qty 내부에서 클릭한 X 좌표
+        var $input = $container.find('input')
+        var currentVal = parseInt($input.val())
+
+        // 좌측 35px 영역 클릭 → 수량 감소, 우측 35px 영역 클릭 → 수량 증가
+        if (posX < 35) {
+            var newVal = Math.max(1, currentVal - 1)
+            $input.val(newVal)
+        } else if (posX > $container.width() - 35) {
+            var newVal = currentVal + 1
+            $input.val(newVal)
+        }
+
+        // Ajax 호출: 변경된 수량을 서버에 전송 (서버 URL과 파라미터는 환경에 맞게 수정)
+        $.ajax({
+            url: 'updateQuantity.do',  // 서버의 수량 업데이트 처리 URL
+            type: 'POST',
+            data: {
+                product_no: $('#product_no').val(), // 제품 번호 (hidden input 등에서 가져옴)
+                quantity: $input.val()
+            },
+            success: function(response) {
+                console.log("수량 업데이트 성공:", response)
+            },
+            error: function(xhr, status, error) {
+                console.error("수량 업데이트 실패:", error)
+            }
+        })
+    })
+})
+</script>
 </head>
 <body>
     <!-- Breadcrumb Section Begin -->
@@ -72,10 +138,15 @@
                         </div>
                         <c:if test="${sessionScope.id!=null }">
                         <a href="../jjim/jjim_insert.do?rno=${vo.product_no }&type=1" class="heart-icon"><span class="icon_heart_alt"></span></a>
-                        <a href="#" class="heart-icon"><span class="icon_cart_alt"></span></a>
+                        <form method="post" action="../cart/cart_insert.do" class="heart-icon">
+                         <input type="hidden" name="pno" value="${product_no }">
+                         <input type="hidden" name="price" value="${vo.price }">
+                         <input type="hidden" name="account" value="${account }">
+                         <button type="submit" class="icon_cart_alt" style="background: none; border: none;"></button>
+                        </form>
                         <a href="#" class="primary-btn">구매하기</a>
                         </c:if>
-                        <a href="#" class="primary-btn">목록</a>
+                        <a href="javascript:history.back()" class="primary-btn">목록</a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>

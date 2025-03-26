@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.reserve-mapper">
+  <!-- 맛집 정보 읽기 -->
+  <select id="reserveFoodData" resultType="FoodVO" parameterType="hashmap">
+    SELECT fno, poster, name, rdays, rownum 
+    FROM (SELECT fno, poster, name, rdays 
+    FROM project_food WHERE type LIKE '%'||#{type}||'%' ORDER BY hit DESC)
+    WHERE rownum&lt;=50
+  </select>
+  <!-- 
+  SELECT fno,poster,name,rdays,rownum 
+   FROM (SELECT fno,poster,name,rdays 
+   FROM project_food WHERE type LIKE '%'||#{type}||'%' ORDER BY hit DESC)
+   WHERE rownum&lt;=50
+   -->
+  
+  <!-- 시간 읽기 -->
+  <select id="reserveDayTimeInfoData" resultType="string" parameterType="int">
+    SELECT time FROM reserve_day
+    WHERE rno=#{rno}
+  </select>
+  <select id="reserveGetTimeData" resultType="string" parameterType="int">
+    SELECT time FROM reserve_time
+    WHERE tno=#{tno}
+  </select>
+  <insert id="reserveInsert" parameterType="ReserveVO">
+    INSERT INTO reserve_info VALUES(
+      (SELECT NVL(MAX(rno)+1,1) FROM reserve_info),
+      #{id},#{fno},#{day},#{time},#{inwon},
+      SYSDATE, 'n'
+    )
+  </insert>
+</mapper>

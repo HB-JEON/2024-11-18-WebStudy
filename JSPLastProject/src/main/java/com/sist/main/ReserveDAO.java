@@ -1,6 +1,11 @@
 package com.sist.main;
 
 import java.util.*;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.sist.vo.FoodVO;
+
 import java.sql.*;
 
 public class ReserveDAO {
