@@ -11,7 +11,7 @@
   
   <insert id="cartInsert" parameterType="CartVO">
     INSERT INTO cart VALUES(
-      cart_cno_seq.nextval,#{pno}, #{id}, #{account}, #{price}, 'y', SYSDATE
+      cart_cno_seq.nextval,#{pno}, #{id}, #{account}, #{price, jdbcType=NUMERIC}, 'y', SYSDATE
     )
   </insert>
   
@@ -22,12 +22,12 @@
   </insert>
   
   <select id="cartListData" resultMap="cartMap" parameterType="string">
-    SELECT cno, name, poster, price, account
-    FROM cart c
-    JOIN cocktail_product cp
-    ON c.pno=cp.product_no
-    AND id=#{id} AND isbuy='y'
-    ORDER BY cno DESC
+    SELECT c.cno, cp.name, cp.poster, cp.price, c.account
+	FROM cart c
+	JOIN cocktail_product cp
+	ON c.pno = cp.product_no
+	WHERE c.id = #{id} AND c.isbuy = 'y'
+	ORDER BY c.cno DESC
   </select>
   
   <update id="cartUpdate" parameterType="CartVO">

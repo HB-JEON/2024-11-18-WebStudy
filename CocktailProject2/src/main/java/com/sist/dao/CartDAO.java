@@ -56,4 +56,14 @@ public class CartDAO {
 		 session.insert("buyInsert", vo);
 		 session.close();
 	 }
+	 
+	 public static List<CartVO> buyListData(String id)
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<CartVO> list=session.selectList("buyListData", id);
+		   session.close();
+		   return list;
+	   }
+	 
+	 
 }

@@ -1,10 +1,12 @@
 package com.sist.model;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
 import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
+import org.json.simple.JSONObject;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -169,6 +171,36 @@ public class ReserveModel {
 	  ReserveDAO.reserveInsert(vo);
 	  
 	  return "redirect:../mypage/mypage_reserve.do";
+  }
+  
+  // restController
+  @RequestMapping("mypage/reserve_info.do")
+  public void reserve_info(HttpServletRequest request, HttpServletResponse response) 
+  {
+	  String rno=request.getParameter("rno");
+	  ReserveVO vo=ReserveDAO.reserveMyPageInforData(Integer.parseInt(rno));
+	  
+	  JSONObject obj=new JSONObject();
+	  obj.put("rno", vo.getRno());
+	  obj.put("day", vo.getDay());
+	  obj.put("time", vo.getTime());
+	  obj.put("inwon", vo.getInwon());
+	  obj.put("regdate", vo.getDbday());
+	  obj.put("name", vo.getFvo().getName());
+	  obj.put("poster", "https://www.menupan.com"+vo.getFvo().getPoster());
+	  obj.put("address", vo.getFvo().getAddress());
+	  obj.put("phone", vo.getFvo().getPhone());
+	  obj.put("score", vo.getFvo().getScore());
+	  obj.put("content", vo.getFvo().getContent());
+	  obj.put("theme", vo.getFvo().getTheme());
+	  
+	  try
+	  {
+		  response.setContentType("text/plain;charset=UTF-8");
+		  // products
+		  PrintWriter out=response.getWriter();
+		  out.write(obj.toJSONString());
+	  }catch(Exception e) {}
   }
 }
 

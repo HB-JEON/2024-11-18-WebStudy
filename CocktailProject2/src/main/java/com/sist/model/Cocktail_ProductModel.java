@@ -147,6 +147,7 @@ public class Cocktail_ProductModel {
 		{
 		String product_no=request.getParameter("product_no");
 		String cno=request.getParameter("cno");
+		String price=request.getParameter("price");
 		
 		Cocktail_ProductVO vo=Cocktail_ProductDAO.cocktail_productDetailData(Integer.parseInt(product_no));
 		
@@ -163,16 +164,7 @@ public class Cocktail_ProductModel {
 			ex.printStackTrace();
 		}
 		
-//		JjimVO jvo=new JjimVO();
-//		jvo.setRno(Integer.parseInt(product_no));
-//		jvo.setType(1);
-//		HttpSession session=request.getSession();
-//		String id=(String)session.getAttribute("id");
-//		if(id!=null)
-//		{
-//			int jCount=JjimDAO.jjimCheckCount(jvo);
-//			request.setAttribute("jCount", jCount);
-//		}
+		
 		
 		return "../main/main.jsp";
 	}
