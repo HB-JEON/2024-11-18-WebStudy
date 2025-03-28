@@ -132,6 +132,7 @@ public class Cocktail_ProductModel {
 	{
 		String product_no=request.getParameter("product_no");
 		String cno=request.getParameter("cno");
+		
 		Cookie cookie=new Cookie("product_no_"+product_no, product_no);
 		cookie.setPath("/");
 		cookie.setMaxAge(60^60*24);
@@ -147,24 +148,38 @@ public class Cocktail_ProductModel {
 		{
 		String product_no=request.getParameter("product_no");
 		String cno=request.getParameter("cno");
-		String price=request.getParameter("price");
+		int priceInt=0;
 		
 		Cocktail_ProductVO vo=Cocktail_ProductDAO.cocktail_productDetailData(Integer.parseInt(product_no));
-		
 		int rcno=Integer.parseInt(cno);
 		List<Cocktail_ProductVO> rList4=Cocktail_ProductDAO.cocktail_productCnoRandomData4(rcno);
+		
+		String price=vo.getPrice();
+	    price=price.replaceAll("[^0-9]", "");
+	    vo.setPriceInt(Integer.parseInt(price));
+	    
 		
 		request.setAttribute("product_no", product_no);
 		request.setAttribute("cno", cno);
 		request.setAttribute("vo", vo);
 		request.setAttribute("rList4", rList4);
+		
 		request.setAttribute("main_jsp", "../cocktail_product/cocktail_product_detail.jsp");
 		
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
 		
-		
+//		JjimVO jvo=new JjimVO();
+//		jvo.setRno(Integer.parseInt(product_no));
+//		jvo.setType(1);
+//		HttpSession session=request.getSession();
+//		String id=(String)session.getAttribute("id");
+//		if(id!=null)
+//		{
+//			int jCount=JjimDAO.jjimCheckCount(jvo);
+//			request.setAttribute("jCount", jCount);
+//		}
 		
 		return "../main/main.jsp";
 	}
