@@ -58,17 +58,17 @@ public class CartDAO {
 		 session.close();
 	 }
 	 
-//	 public static boolean cartUpdate(CartVO vo)
-//	 {
-//		 SqlSession session=ssf.openSession(true);
-//		 try
-//		 {
-//			 int rowCount=session.update("cartUpdate", vo);
-//			 return rowCount>0;
-//		 }catch(Exception e)
-//		 {
-//			 e.printStackTrace();
-//		 }
-//		 return false;
-//	 }
+	 public static void cartUpdate(CartVO vo)
+	 {
+		 SqlSession session=ssf.openSession(true);
+		 try
+		 {
+			 session.update("cartUpdate", vo);
+			
+		 }catch(Exception e)
+		 {
+			 e.printStackTrace();
+		 }
+		
+	 }
 }

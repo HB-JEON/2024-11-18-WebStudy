@@ -57,78 +57,76 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript"	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript">
-//전역으로 선언하기 위해 window 객체에 추가
-// let sel=0;
-// var IMP = window.IMP; 
-// IMP.init("imp68206770"); 
-// function requestPay(json,name,price) {
-//     var IMP = window.IMP; 
-//     IMP.init("imp22605991"); // 아임포트 초기화
+let sel=0;
 
-//     IMP.request_pay({
-//         channelKey: "channel-key-39cb699d-29a2-40a9-881d-94972112a68b",
-//         pg: 'html5_inicis',  // 오타 수정 (소문자로 작성)
-//         pay_method: "card",
-//         merchant_uid: "ORD20180131-0000011",
-//         name: '당근',
-//         amount: 1222,
-//         buyer_email: abcde@abc.de,
-//         buyer_name: '길동',
-//         buyer_tel: '010-1111-1111',
-//         buyer_addr:  '마포'
-//         buyer_postcode: '53531'
-//     }, function (rsp) {
-//         if (rsp.success) {
-//             alert('결제가 완료되었습니다.');
-//         } else {
-//             alert('결제가 실패했습니다.');
-//         }
-//     });
-// };
+function requestPay(json,name,price) {
+    var IMP = window.IMP; 
+    IMP.init("imp22605991"); // 아임포트 초기화
 
-// // AJAX 요청 부분 (클릭 이벤트)
-// $(document).ready(function(){
-//     $('#buy-button').click(function(){
-//         if ($('#in-qty').val() === "0") {
-//             alert("수량 선택하세요");
-//             return;
-//         }
+    IMP.request_pay({
+        channelKey: "channel-key-4ce83a57-9ceb-443a-94ed-2b49fa7e760a",
+        pg: 'html5_inicis',  // 오타 수정 (소문자로 작성)
+        pay_method: "card",
+        merchant_uid: "ORD20180131-0000011",
+        name: 'sw',
+        amount: 1234,
+        buyer_email: "adfs",
+        buyer_name: "asdf",
+        buyer_tel: "asdf",
+        buyer_addr:  "asdff",
+        buyer_postcode: "ㅁㄴㄹㅇ"
+    }, function (rsp) {
+        if (rsp.success) {
+            alert('결제가 완료되었습니다.');
+        } else {
+            alert('결제가 실패했습니다.');
+        }
+    });
+};
 
-//         let cno = $('#cno').val();
-//         let price = $('#price-hidden').val();
-//         let account = $('#account-hidden').val();
-//         let name = $('#title').text();
+// AJAX 요청 부분 (클릭 이벤트)
+$(document).ready(function(){
+    $('.primary-btn').click(function(){
+        if ($('#in-qty').val() === "0") {
+            alert("수량 선택하세요");
+            return;
+        }
 
-//         $.ajax({
-//             type: 'POST',
-//             url: '/cart/buy_insert.do',
-//             data: { "cno": cno, "price": price, "account": account },
-//             success: function(result) {
-//                 try {
-//                     console.log("서버 응답: ", result); // 데이터 확인용
-//                     let json = JSON.parse(result);
+        let cno = $('#cno-hidden').val();
+        let price = $('#price-hidden').val();
+        let account = $('#account-hidden').val();
+        let name = $('#name-hidden').text();
 
-//                     if (!json.email || !json.name || !json.phone || !json.address || !json.post) {
-//                         alert("서버에서 유효한 데이터를 받아오지 못했습니다.");
-//                         console.error("서버에서 받아온 JSON: ", json);
-//                         return;
-//                     }
+        $.ajax({
+            type: 'POST',
+            url: '../cart/buy_insert.do',
+            data: { "cno": cno, "price": price, "account": account },
+            success: function(result) {
+                try {
+                    console.log("서버 응답: ", result); // 데이터 확인용
+                    let json = JSON.parse(result);
+
+                    if (!json.email || !json.name || !json.phone || !json.address || !json.post) {
+                        alert("서버에서 유효한 데이터를 받아오지 못했습니다.");
+                        console.error("서버에서 받아온 JSON: ", json);
+                        return;
+                    }
                     
-//                     alert("서버 응답을 받았습니다.");
-//                     window.requestPay(json, name, price); // 전역 함수 호출
-//                 } catch (e) {
-//                     alert("서버 응답을 제대로 받지 못했습니다.");
-//                     console.error(e);
-//                 }
-//             },
-//             error: function(xhr, status, error) {
-//                 alert("AJAX 요청 오류 발생: " + error);
-//                 console.error("상태: " + status);
-//                 console.error("에러: " + error);
-//             }
-//         });
-//     });
-// });
+                    alert("서버 응답을 받았습니다.");
+                    window.requestPay(json, name, price); // 전역 함수 호출
+                } catch (e) {
+                    alert("서버 응답을 제대로 받지 못했습니다.");
+                    console.error(e);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("AJAX 요청 오류 발생: " + error);
+                console.error("상태: " + status);
+                console.error("에러: " + error);
+            }
+        });
+    });
+});
 
 $(function(){
     // 총 금액 업데이트 함수

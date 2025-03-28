@@ -95,7 +95,7 @@ $(function(){
         {
             qtyInput.val(quantity + 1)
             updateTotal(tr)
-            sendAjaxUpdate(tr)
+            Update
         }
         else
         {
@@ -113,6 +113,7 @@ $(function(){
         {
             qtyInput.val(quantity - 1)
             updateTotal(tr)
+            
             sendAjaxUpdate(tr)
         }
         else
@@ -147,6 +148,27 @@ $(function(){
         updateTotal($(this))
     })
 })
+let sendAjaxUpdate=(tr) => {
+	let rawPrice = tr.find('.shoping__cart__price').data('price')
+    let price = Number(String(rawPrice).replace(/[^0-9]/g, ''))
+    
+    let qtyInput = tr.find('.text-qty')
+    let quantity = Number(qtyInput.val())
+    
+    if(isNaN(quantity) || quantity <= 1)
+    {
+        quantity = 1
+        qtyInput.val(quantity)
+    }
+    $.ajax({
+    	type: 'post'
+    	url: '..cart/cart_insert.do'
+    	data: {"cno": cno }
+    	success(update)
+    })
+    
+
+}
 
 </script>
 </head>
