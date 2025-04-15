@@ -50,6 +50,7 @@ public class CocktailMemberModel {
 		   }catch(Exception ex) 
 		   {
 			   ex.printStackTrace();
+			   
 		   }
 		   
 	   }
@@ -136,6 +137,7 @@ public class CocktailMemberModel {
 		   }catch(Exception ex) 
 		   {
 			   ex.printStackTrace();
+			   
 		   }
 	   }
 	// 로그아웃 
@@ -147,5 +149,5 @@ public class CocktailMemberModel {
 		   session.invalidate();
 		   return "redirect:../main/main.do";
 	   }
+	    
 	}
-

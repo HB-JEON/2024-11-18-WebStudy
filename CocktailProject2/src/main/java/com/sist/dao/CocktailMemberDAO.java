@@ -121,4 +121,12 @@ public class CocktailMemberDAO {
 		   }
 		   return mvo;
 	   }
+	   // memberInfoData 추가
+	   public static CocktailMemberVO memberInfoData(String id)
+	   {
+		   SqlSession session=ssf.openSession();
+		   CocktailMemberVO vo=session.selectOne("memberInfoData", id);
+		   session.close();
+		   return vo;
+	   }
 }
