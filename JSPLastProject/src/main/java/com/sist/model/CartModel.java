@@ -21,7 +21,7 @@ public class CartModel {
 	@RequestMapping("cart/cart_insert.do")
 	public String cart_insert(HttpServletRequest request, HttpServletResponse response)
 	{
-		String gno=request.getParameter("gno");
+		String gno=request.getParameter("cno");
 		String account=request.getParameter("account");
 		String price=request.getParameter("price");
 		
@@ -35,6 +35,7 @@ public class CartModel {
 		vo.setId(id);
 		
 		CartDAO.cartInsert(vo);
+		
 		return "redirect:../mypage/mypage_cart_list.do";
 	}
 	@RequestMapping("cart/cart_Cancel.do")
