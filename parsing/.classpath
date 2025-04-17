@@ -10,5 +10,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/duddj/OneDrive/바탕 화면/갓현빈 폴더/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sist-106/Desktop/jar/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sist-106/Desktop/jar/jsoup-1.18.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sist-106/Desktop/jar/lombok-1.18.36.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sist-106/Desktop/jar/ojdbc11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
