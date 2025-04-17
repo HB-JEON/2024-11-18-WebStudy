@@ -7,26 +7,15 @@ import java.io.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
-public class TourParsingTest {
+public class TourParsingTest2 {
     public static void main(String[] args) {
     	int[] areaCodes = {1, 39}; // 1: 서울, 39: 제주
-    	
-    	HashMap<String, String[]> tagMap = new HashMap<>();
-        tagMap.put("A01010100", new String[]{"국립공원", "공원", "자연", "산책"});
-        tagMap.put("A01010200", new String[]{"도립공원", "공원", "자연", "산책"});
-        tagMap.put("A01010400", new String[]{"산", "등산", "자연", "풍경"});
-        tagMap.put("A01010500", new String[]{"공원", "휴식", "자연", "산책"});
-        tagMap.put("A01010700", new String[]{"식물원", "공원", "자연", "테마"});
-        tagMap.put("A01010900", new String[]{"계곡", "물놀이", "자연", "피서"});
-        tagMap.put("A01011300", new String[]{"섬", "풍경", "자연"});
-        tagMap.put("A01011400", new String[]{"유람선", "크루즈", "체험", "강"});
-        tagMap.put("A01011800", new String[]{"하천", "자연", "산책"});
 
         for (int areaCode : areaCodes) {
             System.out.println("\n===== 📍 지역 코드 " + areaCode + " 파싱 시작 =====");
 
             String listUrl = "https://apis.data.go.kr/B551011/KorService1/areaBasedSyncList1"
-                    + "?numOfRows=120&pageNo=1&MobileOS=etc&MobileApp=test&_type=json"
+                    + "?numOfRows=10&pageNo=1&MobileOS=etc&MobileApp=test&_type=json"
                     + "&contentTypeId=12&cat1=A01&cat2=A0101"
                     + "&areaCode=" + areaCode
                     + "&serviceKey=ISunMAfs3B9igj01dGnHJUtaa5gD1SQWneL2zpo5TIQGkuLFPSlB%2BcXAm3x2lYmUtwaElqtUlvUmkpPRKsRpDw%3D%3D";
@@ -44,10 +33,10 @@ public class TourParsingTest {
                 JSONArray itemArr = (JSONArray) ((JSONObject) body.get("items")).get("item");
 
                 // DB 연결
-//                Class.forName("oracle.jdbc.driver.OracleDriver");
-//                Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "아이디", "비밀번호");
-//                String sql = "INSERT INTO tour VALUES(tour_no_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//                PreparedStatement ps = conn.prepareStatement(sql);
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "happy");
+                String sql = "INSERT INTO tour VALUES(tour_no_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
 
                 int count = 0; // ✅ 수집 성공 건수 카운터
 
@@ -94,27 +83,12 @@ public class TourParsingTest {
                     System.out.println(cat2);
                     System.out.println(cat3);
 
-//                    // DB 저장
-//                    ps.setLong(1, contentId);
-//                    ps.setLong(2, contentTypeId);
-//                    ps.setString(3, title);
-//                    ps.setString(4, addr);
-//                    ps.setLong(5, areacode);
-//                    ps.setLong(6, sigungu);
-//                    ps.setString(7, img);
-//                    ps.setString(8, cat1);
-//                    ps.setString(9, cat2);
-//                    ps.setString(10, cat3);
-//                    ps.setDouble(11, mapx);
-//                    ps.setDouble(12, mapy);
-//                    ps.setString(13, overview);
-//                    ps.executeUpdate();
                 }
 
                 // ✅ 수집 성공한 건수 출력
                 System.out.println("수집된 데이터 : " + count);
 
-                //conn.close();
+                conn.close();
                 System.out.println("✅ 지역 코드 " + areaCode + " 데이터 저장 완료");
 
             } catch (Exception e) {
